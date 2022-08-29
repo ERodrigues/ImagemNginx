@@ -10,8 +10,19 @@ const config = {
 const mysql = require('mysql')
 const connection = mysql.createConnection(config)
 
-const sql = `INSERT INTO people(name) values('Eder')`
-connection.query(sql)
+connection.connect(function(err) {
+    const create_table = 'create table if not exists people (id int auto_increment primary key, name varchar(255))'
+    connection.query(create_table, function(erro, result) {
+        if (err) throw err
+        console.log("Tabela criada")
+    })
+
+    const sql = `INSERT INTO people(name) values('Eder')`
+    connection.query(sql, function(erro, result) {
+        if (err) throw err
+        console.log("Insert realizado")
+    })
+})
 connection.end()
 
 const query = 'SELECT * FROM people'
@@ -19,9 +30,6 @@ const query = 'SELECT * FROM people'
 
 app.get('/', (req,res) => {
     res.send('<h1>Full Cycle</h1>')
-    connection.query(query, (error, results, fields) => {
-        res.send(results)
-    }
 })
 
 app.listen(port, ()=> {
