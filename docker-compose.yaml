@@ -1,17 +1,27 @@
 version: '3'
 
 services: 
+  webserver:
+    build: 
+      context: nginx
+    container_name: webserver
+    networks:
+      - fullCycleNetwork
+    ports:
+      - "8080:8080"
+    depends_on:
+      - app
+
   app:
     build: 
       context: node
+    command: node index.js
     container_name: app
     entrypoint: dockerize -wait tcp://db:3306 -timeout 20s docker-entrypoint.sh
     networks:
       - fullCycleNetwork
     volumes: 
       - ./node:/usr/src/app
-    ports:
-      - "3000:3000"
     tty: true
     depends_on:
       - db
