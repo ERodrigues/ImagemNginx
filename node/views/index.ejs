@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <title>
+      Treinamento Fullcycle
+    </title>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <div class="container mt-4">
+      <br />
+      <h1>Full Cycle Rocks!</h1>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Lista de nomes cadastrados no banco:</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if(data.length){ for(var i = 0; i< data.length; i++) {%>
+          <tr>
+            <td><%= data[i].name%></td>
+          </tr>
+          <% } }else{ %>
+          <tr>
+            <td>No data ever existed.</td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
